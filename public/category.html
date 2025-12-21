@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-R" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carregando Categoria...</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="category.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header-content">
+        <a href="app.html" class="logo-link">
+          <h1><i class="fas fa-utensils"></i> receitas infinitas</h1>
+        </a>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Buscar em todas as receitas..." />
+          <button id="search-btn" title="Buscar Receita"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="profile-container">
+          <button id="profile-btn" class="profile-btn">
+            <i class="fas fa-user-circle"></i>
+            <span id="profile-name"></span>
+          </button>
+          <div id="profile-dropdown" class="profile-dropdown hidden">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        
+        <button class="nav-toggle" id="nav-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-links">
+            <li><a href="category.html?id=ceia-de-natal">Ceia de Natal</a></li>
+            <li><a href="category.html?id=bolos-e-tortas">Bolos e Tortas</a></li>
+            <li><a href="category.html?id=carnes">Carnes</a></li>
+            <li><a href="category.html?id=aves">Aves</a></li>
+            <li><a href="category.html?id=peixes-e-frutos-do-mar">Peixes</a></li>
+            <li><a href="category.html?id=saladas-e-molhos">Saladas</a></li>
+            <li><a href="category.html?id=sopas">Sopas</a></li>
+            <li><a href="category.html?id=massas">Massas</a></li>
+            <li><a href="category.html?id=doces-e-sobremesas">Sobremesas</a></li>
+            <li><a href="category.html?id=lanches">Lanches</a></li>
+            <li><a href="category.html?id=bebidas">Bebidas</a></li>
+            <li><a href="category.html?id=alimentacao-saudavel">Saudável</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      
+      <div id="breadcrumbs-container"></div>
+      
+      <div id="category-content">
+      </div>
+    </div>
+
+    <script src="category.js" type="module"></script>
+    <script src="global.js" type="module"></script>
+  </body>
+</html>

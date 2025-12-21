@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-R" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Receitas Infinitas</title>
+    
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+       <div class="site-header-content">
+        <a href="app.html" class="logo-link">
+          <h1><i class="fas fa-utensils"></i> receitas infinitas</h1>
+        </a>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Buscar em todas as receitas..." />
+          <button id="search-btn" title="Buscar Receita"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="profile-container">
+          <button id="profile-btn" class="profile-btn">
+            <i class="fas fa-user-circle"></i>
+            <span id="profile-name"></span>
+          </button>
+          <div id="profile-dropdown" class="profile-dropdown hidden">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        
+        <button class="nav-toggle" id="nav-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-links">
+            <li><a href="category.html?id=ceia-de-natal">Ceia de Natal</a></li>
+            <li><a href="category.html?id=bolos-e-tortas">Bolos e Tortas</a></li>
+            <li><a href="category.html?id=carnes">Carnes</a></li>
+            <li><a href="category.html?id=aves">Aves</a></li>
+            <li><a href="category.html?id=peixes-e-frutos-do-mar">Peixes</a></li>
+            <li><a href="category.html?id=saladas-e-molhos">Saladas</a></li>
+            <li><a href="category.html?id=sopas">Sopas</a></li>
+            <li><a href="category.html?id=massas">Massas</a></li>
+            <li><a href="category.html?id=doces-e-sobremesas">Sobremesas</a></li>
+            <li><a href="category.html?id=lanches">Lanches</a></li>
+            <li><a href="category.html?id=bebidas">Bebidas</a></li>
+            <li><a href="category.html?id=alimentacao-saudavel">Saudável</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="admin-wrapper">
+        <h1 class="admin-title">Painel de Administração</h1>
+        <p>Olá, <span id="user-name">Usuário</span>! Use o formulário abaixo para adicionar uma nova receita.</p>
+
+        <form id="add-recipe-form" class="admin-form">
+          <h2>Adicionar Nova Receita</h2>
+          
+          <div class="form-group">
+            <label for="titulo">Título da Receita</label>
+            <input type="text" id="titulo" required>
+          </div>
+
+          <div class="form-group">
+            <label for="imagem">URL da Imagem</label>
+            <input type="url" id="imagem" placeholder="https://..." required>
+          </div>
+
+          <div class="form-group-inline">
+            <div class="form-group">
+              <label for="tempo">Tempo de Preparo</label>
+              <input type="text" id="tempo" placeholder="ex: 45 min">
+            </div>
+            <div class="form-group">
+              <label for="porcoes">Porções</label>
+              <input type="number" id="porcoes" placeholder="ex: 8">
+            </div>
+          </div>
+          
+          <div class="form-group-inline">
+            <div class="form-group">
+              <label for="categoria-select">Categoria</label>
+              <select id="categoria-select" required>
+                <option value="">Carregando categorias...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="topico-select">Tópico</label>
+              <select id="topico-select" required disabled>
+                <option value="">Selecione uma categoria primeiro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ingredientes">Ingredientes (um por linha)</label>
+            <textarea id="ingredientes" rows="10" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="instrucoes">Modo de Preparo (um passo por linha)</label>
+            <textarea id="instrucoes" rows="10" required></textarea>
+          </div>
+
+          <button type="submit" class="admin-button" id="submit-recipe">Salvar Receita</button>
+          <p id="form-message"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="global.js" type="module"></script>
+    <script src="admin.js" type="module"></script>
+  </body>
+</html>

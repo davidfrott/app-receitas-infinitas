@@ -1,0 +1,13 @@
+#password-form {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.form-message.success {
+  color: #0ba360; 
+}
+
+.form-message.error {
+  color: var(--secondary); 
+}

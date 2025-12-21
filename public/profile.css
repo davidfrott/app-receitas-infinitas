@@ -1,0 +1,89 @@
+.profile-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-icon {
+  font-size: 4rem;
+  color: var(--primary);
+}
+
+.profile-header-info h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.profile-header-info p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
+
+.profile-body {
+  padding-top: 1.5rem;
+}
+
+.profile-section {
+  margin-bottom: 2rem;
+}
+
+.profile-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.info-card {
+  background-color: var(--background);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+}
+
+.info-card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #777;
+  margin: 0 0 0.5rem 0;
+}
+
+.info-card p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+  word-break: break-all;
+}
+
+.edit-link {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  margin-top: 1rem;
+}
+
+.edit-link:hover {
+  text-decoration: underline;
+}

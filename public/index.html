@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Buscador de Receitas</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="form-wrapper">
+        <div class="form-header">
+          <h1><i class="fas fa-utensils"></i> Receitas Infinitas</h1>
+          <p id="form-subtitle">Entre com sua conta para continuar</p>
+        </div>
+
+        <form id="login-form">
+          <div class="input-group hidden" id="name-group">
+            <label for="name"><i class="fas fa-user"></i> Nome</label>
+            <input type="text" id="name" placeholder="Seu nome completo" />
+            <span class="error-message" id="name-error"></span>
+          </div>
+
+          <div class="input-group">
+            <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com" required />
+            <span class="error-message" id="email-error"></span>
+          </div>
+
+          <div class="input-group">
+            <label for="password"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" id="password" placeholder="Mínimo 6 caracteres" required />
+            <span class="error-message" id="password-error"></span>
+          </div>
+
+          <button type="submit" class="login-btn" id="submit-btn">Entrar</button>
+        </form>
+
+        <div class="toggle-form">
+          <p id="toggle-to-register">
+            Não tem uma conta? <a href="#" id="toggle-register-link">Registre-se</a>
+          </p>
+          <p id="toggle-to-login" class="hidden">
+            Já tem uma conta? <a href="#" id="toggle-login-link">Entrar</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <script src="login.js"></script>
+  </body>
+</html>
