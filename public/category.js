@@ -1,150 +1,125 @@
-const categoryContent = document.getElementById("category-content");
-const breadcrumbsContainer = document.getElementById("breadcrumbs-container");
-
+const API_URL = 'http://localhost:8080/api';
 let userFavoriteIds = new Set();
 const token = localStorage.getItem('authToken');
 
-document.addEventListener('DOMContentLoaded', loadCategoryPage);
-categoryContent.addEventListener('click', (e) => {
-  const favoriteBtn = e.target.closest('.favorite-btn');
-  if (favoriteBtn) {
-    e.preventDefault(); 
-    e.stopPropagation(); 
-    const recipeId = favoriteBtn.dataset.id;
-    toggleFavorite(recipeId, favoriteBtn);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+    loadCategoryPage();
 });
 
-async function fetchFavoriteIds() {
-  if (!token) return;
-  try {
-    const response = await fetch('/api/favoritos/ids', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!response.ok) return;
-    const ids = await response.json();
-    userFavoriteIds = new Set(ids);
-  } catch (error) {
-    console.error("Erro ao buscar IDs de favoritos:", error);
-  }
-}
-
 async function loadCategoryPage() {
-  await fetchFavoriteIds();
-  const params = new URLSearchParams(window.location.search);
-  const categoryId = params.get('id');
-  if (!categoryId) {
-    showError("Nenhuma categoria foi especificada.");
-    return;
-  }
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get('id');
 
-  try {
-    const response = await fetch(`/api/categorias/${categoryId}`);
-    if (!response.ok) {
-      throw new Error(`A categoria "${categoryId}" não foi encontrada.`);
+    if (!categoryId) {
+        window.location.href = "app.html";
+        return;
     }
-    const categoria = await response.json();
-    document.title = `${categoria.titulo} | Receitas Infinitas`;
-    buildBreadcrumbs(categoria);
 
-    categoryContent.innerHTML = `
-      <h1 class="category-page-title">${categoria.titulo}</h1>
-      <p class="category-page-description">${categoria.descricao}</p>
-    `;
+    await fetchFavoriteIds();
+    
+    fetch(`${API_URL}/categorias/${categoryId}`)
+        .then(res => res.json())
+        .then(categoria => {
+            document.querySelector('.category-page-title').textContent = categoria.titulo;
+            document.querySelector('.category-page-description').textContent = categoria.descricao || `As melhores receitas de ${categoria.titulo}`;
+            document.title = `${categoria.titulo} | Receitas Infinitas`;
+            
+            const breadcrumbs = document.getElementById("breadcrumbs");
+            if(breadcrumbs) {
+                breadcrumbs.innerHTML = `<a href="app.html">Home</a> > <span>${categoria.titulo}</span>`;
+            }
+        })
+        .catch(err => console.error("Erro ao carregar info da categoria", err));
 
-    for (const topico of categoria.topicos) {
-      const topicTitleEl = document.createElement('h2');
-      topicTitleEl.className = 'topic-title';
-      topicTitleEl.textContent = topico.titulo;
-      categoryContent.appendChild(topicTitleEl);
-
-      const recipeGridEl = document.createElement('div');
-      recipeGridEl.className = 'meals-container';
-
-      if (topico.receitas && topico.receitas[0] !== null) {
-        appendRecipes(topico.receitas, recipeGridEl);
-      } else {
-        recipeGridEl.innerHTML = `<p>Nenhuma receita encontrada para este tópico.</p>`;
-      }
-      categoryContent.appendChild(recipeGridEl);
-    }
-  } catch (error) {
-    console.error(error);
-    showError(error.message);
-  }
-}
-
-function buildBreadcrumbs(categoria) {
-  breadcrumbsContainer.innerHTML = `
-    <div class="breadcrumbs">
-      <a href="app.html">Receitas Infinitas</a>
-      <span class="separator">&gt;</span>
-      <span>${categoria.titulo}</span>
-    </div>
-  `;
-}
-
-function showError(message) {
-  breadcrumbsContainer.innerHTML = "";
-  categoryContent.innerHTML = `<p class="error-message">${message}</p>`;
-}
-
-function appendRecipes(recipes, container) {
-  recipes.forEach(receita => {
-    const isFavorited = userFavoriteIds.has(receita.id);
-    const favoritedClass = isFavorited ? 'favorited' : '';
-    const favoriteBtnHtml = token ? `
-      <button class="favorite-btn ${favoritedClass}" data-id="${receita.id}" title="Favoritar">
-        <i class="fas fa-heart"></i>
-      </button>
-    ` : '';
-    const cardHtml = `
-      <div class="meal">
-        ${favoriteBtnHtml} 
-        <a href="recipe.html?id=${receita.id}" class="meal-link-wrapper">
-          <img src="${receita.imagem}" alt="${receita.titulo}">
-          <div class="meal-info">
-            <h3 class="meal-title">${receita.titulo}</h3>
-            <div class="meal-meta">
-              <span>
-                <i class="fas fa-clock"></i> ${receita.tempo || 'N/A'}
-              </span>
-              <span>
-                <i class="fas fa-user-friends"></i> ${receita.porcoes || '?'} porções
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    `;
-    container.innerHTML += cardHtml;
-  });
-}
-
-async function toggleFavorite(recipeId, buttonEl) {
-  if (!token) {
-    alert("Você precisa estar logado para favoritar receitas.");
-    return;
-  }
-  buttonEl.disabled = true;
-  try {
-    const response = await fetch(`/api/receitas/${recipeId}/favoritar`, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message);
-    if (data.favoritado) {
-      buttonEl.classList.add('favorited');
-      userFavoriteIds.add(recipeId);
+    const container = document.getElementById('category-recipes-grid');
+    const mainContainer = container || document.querySelector('.container'); 
+    let grid = document.getElementById("recipes-grid");
+    if (!grid) {
+        grid = document.createElement("div");
+        grid.id = "recipes-grid";
+        grid.className = "meals-container";
+        mainContainer.appendChild(grid);
     } else {
-      buttonEl.classList.remove('favorited');
-      userFavoriteIds.delete(recipeId);
+        grid.innerHTML = "";
     }
-  } catch (error) {
-    console.error("Erro ao favoritar:", error.message);
-    alert(`Erro: ${error.message}`);
-  } finally {
-    buttonEl.disabled = false;
-  }
+
+    try {
+        const response = await fetch(`${API_URL}/receitas/categoria/${categoryId}`);
+        const receitas = await response.json();
+
+        if (receitas.length === 0) {
+            grid.innerHTML = `<p class="error-message">Ainda não há receitas nesta categoria. Seja o primeiro a adicionar!</p>`;
+            return;
+        }
+
+        receitas.forEach(receita => {
+            const isFavorited = userFavoriteIds.has(receita.id);
+            const favoritedClass = isFavorited ? 'favorited' : '';
+            const favoriteBtnHtml = token ? `
+                <button class="favorite-btn ${favoritedClass}" data-id="${receita.id}">
+                    <i class="fas fa-heart"></i>
+                </button>` : '';
+
+            const imgUrl = receita.imagem || 'https://via.placeholder.com/300?text=Sem+Imagem';
+
+            const card = `
+                <div class="meal">
+                    ${favoriteBtnHtml}
+                    <a href="recipe.html?id=${receita.id}" class="meal-link-wrapper">
+                        <img src="${imgUrl}" alt="${receita.titulo}">
+                        <div class="meal-info">
+                            <h3 class="meal-title">${receita.titulo}</h3>
+                            <div class="meal-meta">
+                                <span><i class="fas fa-clock"></i> ${receita.tempo}</span>
+                                <span><i class="fas fa-user-friends"></i> ${receita.porcoes}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+            grid.innerHTML += card;
+        });
+        
+        grid.addEventListener('click', (e) => {
+            const btn = e.target.closest('.favorite-btn');
+            if (btn) toggleFavorite(btn.dataset.id, btn);
+        });
+
+    } catch (error) {
+        console.error(error);
+        grid.innerHTML = `<p class="error-message">Erro ao carregar receitas.</p>`;
+    }
+}
+
+async function fetchFavoriteIds() {
+    if (!token) return;
+    try {
+        const response = await fetch(`${API_URL}/favoritos/ids`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            const ids = await response.json();
+            userFavoriteIds = new Set(ids);
+        }
+    } catch (e) { console.error(e); }
+}
+
+async function toggleFavorite(id, btn) {
+    if (!token) return alert("Faça login!");
+    btn.disabled = true;
+    try {
+        const res = await fetch(`${API_URL}/receitas/${id}/favoritar`, {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`}
+        });
+        const data = await res.json();
+        if (data.favoritado) {
+            btn.classList.add('favorited');
+            userFavoriteIds.add(parseInt(id));
+        } else {
+            btn.classList.remove('favorited');
+            userFavoriteIds.delete(parseInt(id));
+        }
+    } catch(e) { console.error(e); }
+    finally { btn.disabled = false; }
 }

@@ -49,7 +49,7 @@ async function handleRegister() {
   const senha = passwordInput.value;
 
   try {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch('http://localhost:8080/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, email, senha })
@@ -75,7 +75,7 @@ async function handleLogin() {
   const senha = passwordInput.value;
 
   try {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('http://localhost:8080/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, senha })

@@ -1,5 +1,6 @@
 const recipeContent = document.getElementById("recipe-content");
 const breadcrumbsContainer = document.getElementById("breadcrumbs-container");
+const API_URL = 'http://localhost:8080/api';
 
 document.addEventListener('DOMContentLoaded', loadRecipePage);
 
@@ -13,7 +14,7 @@ async function loadRecipePage() {
   }
 
   try {
-    const response = await fetch(`/api/receitas/${recipeId}`);
+    const response = await fetch(`${API_URL}/receitas/${recipeId}`);
     if (!response.ok) {
       throw new Error(`A receita com ID "${recipeId}" não foi encontrada.`);
     }
@@ -23,8 +24,9 @@ async function loadRecipePage() {
     document.title = `${receita.titulo} | Receitas Infinitas`;
 
     buildBreadcrumbs(receita);
-
     buildRecipeHtml(receita);
+    
+    setupDeleteButton(receita.id); 
 
   } catch (error) {
     console.error(error);
@@ -37,7 +39,7 @@ function buildBreadcrumbs(receita) {
     <div class="breadcrumbs">
       <a href="app.html">Receitas Infinitas</a>
       <span class="separator">&gt;</span>
-      <a href="category.html?id=${receita.categoriaId}">${receita.categoriaTitulo}</a>
+      <a href="category.html?id=${receita.categoriaId || ''}">${receita.categoriaTitulo || 'Categoria'}</a>
       <span class="separator">&gt;</span>
       <span>${receita.titulo}</span>
     </div>
@@ -56,7 +58,15 @@ function buildRecipeHtml(receita) {
   recipeContent.innerHTML = `
     <div class="recipe-details">
       <div class="recipe-header">
-        <h1 class="recipe-title">${receita.titulo}</h1>
+        
+        <div class="title-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+            <h1 class="recipe-title" style="margin: 0;">${receita.titulo}</h1>
+            
+            <button id="delete-btn" class="delete-btn hidden" title="Excluir Receita">
+               <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+
         <div class="recipe-meta-info">
           <span>
             <i class="fas fa-clock"></i> ${receita.tempo || 'N/A'}
@@ -70,7 +80,6 @@ function buildRecipeHtml(receita) {
       <img src="${receita.imagem}" alt="${receita.titulo}" class="recipe-image">
 
       <div class="recipe-body">
-        
         <div class="recipe-section recipe-ingredients">
           <h2><i class="fas fa-shopping-cart"></i> Ingredientes</h2>
           <ul class="ingredients-list">
@@ -84,10 +93,41 @@ function buildRecipeHtml(receita) {
             ${instructionsHtml}
           </ol>
         </div>
-
       </div>
     </div>
   `;
+}
+
+function setupDeleteButton(recipeId) {
+    const deleteBtn = document.getElementById("delete-btn");
+    const token = localStorage.getItem('authToken');
+
+    if (!token || !deleteBtn) return;
+    
+    deleteBtn.classList.remove("hidden"); 
+
+    deleteBtn.addEventListener("click", async () => {
+        if (confirm("⚠️ Tem certeza que deseja APAGAR esta receita?\nEssa ação não pode ser desfeita.")) {
+            try {
+                const response = await fetch(`${API_URL}/receitas/${recipeId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    alert("Receita apagada com sucesso!");
+                    window.location.href = "app.html";
+                } else {
+                    alert("Erro ao apagar. Verifique se você tem permissão.");
+                }
+            } catch (error) {
+                console.error("Erro:", error);
+                alert("Erro de conexão ao tentar apagar.");
+            }
+        }
+    });
 }
 
 function showError(message) {

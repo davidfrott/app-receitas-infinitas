@@ -3,30 +3,43 @@
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
 }
 
 .category-page-description {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  color: #717171;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #f0f0f0;
   padding-bottom: 1.5rem;
 }
 
 .topic-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 2.5rem;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.topic-title::before {
+  content: '';
   display: inline-block;
-  padding-bottom: 4px;
+  width: 4px;
+  height: 24px;
+  background-color: var(--primary);
+  margin-right: 12px;
+  border-radius: 4px;
 }
 
 .error-message {
-  font-size: 1.2rem;
-  color: var(--secondary);
+  font-size: 1.1rem;
+  color: var(--primary);
   text-align: center;
-  padding: 2rem;
+  padding: 3rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px dashed #ddd;
 }

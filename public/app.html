@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Receitas Infinitas</title>
     <link rel="stylesheet" href="main.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍴</text></svg>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
   <body>
     <header class="site-header">
@@ -27,15 +25,13 @@
             <i class="fas fa-user-circle"></i>
             <span id="profile-name"></span>
           </button>
-          <div id="profile-dropdown" class="profile-dropdown hidden">
-          </div>
+          <div id="profile-dropdown" class="profile-dropdown hidden"></div>
         </div>
       </div>
     </header>
 
     <nav class="navbar">
       <div class="nav-container">
-        
         <button class="nav-toggle" id="nav-toggle">
           <i class="fas fa-bars"></i>
         </button>
@@ -58,21 +54,45 @@
         </div>
       </div>
     </nav>
-    <div class="container">
-      
-      <h2 class="section-title" id="category-heading">Navegar por Categorias 📂</h2>
-      <div id="category-grid" class="category-grid-container">
-      </div>
 
-      <h2 class="section-title" id="recipe-heading">Receitas Populares 🍲</h2>
-      
+    <div class="container">
+
+      <h2 class="section-title" id="recipe-heading">Receitas Populares</h2>
       <div id="recipe-grid" class="meals-container">
-      </div>
+          </div>
 
       <div id="infinite-loader" class="loader-container">
         <div class="loader hidden"></div>
       </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+              <a href="app.html" class="footer-brand-link">
+                  <i class="fas fa-utensils"></i> receitas infinitas
+              </a>
+              <p>O seu guia definitivo de sabores.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Descubra</h3>
+                <a href="app.html">Início</a>
+                <a href="search.html?q=bolo">Receitas Populares</a>
+                <a href="admin.html">Área do Chef</a>
+            </div>
+            <div class="footer-social">
+                <h3>Redes Sociais</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Receitas Infinitas.</p>
+        </div>
+    </footer>
 
     <script src="main.js" type="module"></script>
     <script src="global.js" type="module"></script>

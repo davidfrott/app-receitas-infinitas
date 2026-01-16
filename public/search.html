@@ -1,76 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-R" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Busca | Receitas Infinitas</title>
-    
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="search.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca de Receitas</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍴</text></svg>">
+    <link rel="shortcut icon" href="#" />
+</head>
+<body>
     <header class="site-header">
-       <div class="site-header-content">
-        <a href="app.html" class="logo-link">
-          <h1><i class="fas fa-utensils"></i> receitas infinitas</h1>
-        </a>
-        
-        <div class="search-container">
-          <input type="text" id="search-input" placeholder="Buscar em todas as receitas..." />
-          <button id="search-btn" title="Buscar Receita"><i class="fas fa-search"></i></button>
-        </div>
+        <div class="site-header-content">
+            <a href="app.html" class="logo-link">
+                <h1><i class="fas fa-utensils"></i> receitas infinitas</h1>
+            </a>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar nova receita..." />
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
 
-        <div class="profile-container">
-          <button id="profile-btn" class="profile-btn">
-            <i class="fas fa-user-circle"></i>
-            <span id="profile-name"></span>
-          </button>
-          <div id="profile-dropdown" class="profile-dropdown hidden">
-          </div>
+            <div class="profile-container">
+                <a href="index.html" id="logout-btn" style="color: white; text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+            </div>
         </div>
-      </div>
     </header>
 
-    <nav class="navbar">
-      <div class="nav-container">
-        
-        <button class="nav-toggle" id="nav-toggle">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <div class="nav-menu" id="nav-menu">
-          <ul class="nav-links">
-            <li><a href="category.html?id=ceia-de-natal">Ceia de Natal</a></li>
-            <li><a href="category.html?id=bolos-e-tortas">Bolos e Tortas</a></li>
-            <li><a href="category.html?id=carnes">Carnes</a></li>
-            <li><a href="category.html?id=aves">Aves</a></li>
-            <li><a href="category.html?id=peixes-e-frutos-do-mar">Peixes</a></li>
-            <li><a href="category.html?id=saladas-e-molhos">Saladas</a></li>
-            <li><a href="category.html?id=sopas">Sopas</a></li>
-            <li><a href="category.html?id=massas">Massas</a></li>
-            <li><a href="category.html?id=doces-e-sobremesas">Sobremesas</a></li>
-            <li><a href="category.html?id=lanches">Lanches</a></li>
-            <li><a href="category.html?id=bebidas">Bebidas</a></li>
-            <li><a href="category.html?id=alimentacao-saudavel">Saudável</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
     <div class="container">
-      <div id="breadcrumbs-container"></div>
-      
-      <div id="search-results-content">
-        <h1 id="search-heading">Carregando resultados...</h1>
+        <div id="breadcrumbs-container" style="margin-top: 20px;"></div>
+
+        <h2 class="section-title">Resultados da Busca 🔍</h2>
+        
         <div id="search-results-grid" class="meals-container">
-        </div>
-      </div>
+            </div>
     </div>
 
-    <script src="global.js" type="module"></script>
-    <script src="search.js" type="module"></script>
-  </body>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="app.html" class="footer-brand-link">
+                    <i class="fas fa-utensils"></i> receitas infinitas
+                </a>
+                <p>O seu guia definitivo de sabores.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Descubra</h3>
+                <a href="app.html">Início</a>
+                <a href="search.html?q=bolo">Receitas Populares</a>
+                <a href="admin.html">Área do Chef</a>
+            </div>
+            <div class="footer-social">
+                <h3>Redes Sociais</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Receitas Infinitas.</p>
+        </div>
+    </footer>
+
+    <script src="search.js"></script>
+    <script src="main.js" type="module"></script>
+</body>
 </html>

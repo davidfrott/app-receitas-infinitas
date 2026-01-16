@@ -32,7 +32,7 @@ async function handleUpdateDetails(e) {
   const email = emailInput.value;
 
   try {
-    const response = await fetch('/api/profile/details', {
+    const response = await fetch('http://localhost:8080/api/profile/details', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ async function handleUpdatePassword(e) {
   const senhaNova = senhaNovaInput.value;
 
   try {
-    const response = await fetch('/api/profile/password', {
+    const response = await fetch('http://localhost:8080/api/profile/password', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

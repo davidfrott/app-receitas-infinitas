@@ -10,9 +10,15 @@ async function loadFavoritesPage() {
     return;
   }
 
+  const authHeader = `Bearer ${token}`;
+    
+    console.log("--- DIAGNÓSTICO DO TOKEN ---");
+    console.log("Token bruto:", token);
+    console.log("Cabeçalho montado:", authHeader);
+
   try {
-    const response = await fetch('/api/favoritos', {
-      headers: { 'Authorization': `Bearer ${token}` }
+    const response = await fetch('http://localhost:8080/api/favoritos', {
+      headers: { 'Authorization': authHeader}
     });
 
     if (!response.ok) {
@@ -36,21 +42,25 @@ async function loadFavoritesPage() {
 
 function appendRecipes(recipes, container) {
   recipes.forEach(receita => {
+    const imgUrl = receita.imagem || 'https://via.placeholder.com/300?text=Sem+Imagem';
+    
     const cardHtml = `
-      <a href="recipe.html?id=${receita.id}" class="meal">
-        <img src="${receita.imagem}" alt="${receita.titulo}">
-        <div class="meal-info">
-          <h3 class="meal-title">${receita.titulo}</h3>
-          <div class="meal-meta">
-            <span>
-              <i class="fas fa-clock"></i> ${receita.tempo || 'N/A'}
-            </span>
-            <span>
-              <i class="fas fa-user-friends"></i> ${receita.porcoes || '?'} porções
-            </span>
+      <div class="meal">
+        <a href="recipe.html?id=${receita.id}" class="meal-link-wrapper">
+          <img src="${imgUrl}" alt="${receita.titulo}">
+          <div class="meal-info">
+            <h3 class="meal-title">${receita.titulo}</h3>
+            <div class="meal-meta">
+              <span>
+                <i class="fas fa-clock"></i> ${receita.tempo || 'N/A'}
+              </span>
+              <span>
+                <i class="fas fa-user-friends"></i> ${receita.porcoes || '?'} porções
+              </span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     `;
     container.innerHTML += cardHtml;
   });

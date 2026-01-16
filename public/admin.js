@@ -20,7 +20,7 @@ async function initializeAdminPage() {
   userNameSpan.textContent = currentUser.nome || "Usuário";
   
   try {
-    const response = await fetch('/api/admin/form-data', {
+    const response = await fetch('http://localhost:8080/api/dados/form-data', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     
@@ -98,7 +98,7 @@ async function handleAddRecipe(e) {
   };
 
   try {
-    const response = await fetch('/api/receitas', {
+    const response = await fetch('http://localhost:8080/api/receitas', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

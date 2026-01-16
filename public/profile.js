@@ -11,7 +11,7 @@ async function loadProfilePage() {
   }
 
   try {
-    const response = await fetch('/api/profile', {
+    const response = await fetch('http://localhost:8080/api/profile', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
 

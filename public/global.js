@@ -1,10 +1,9 @@
-
 function handleSearchRedirect() {
   const searchInput = document.getElementById("search-input");
   if (!searchInput) return;
   const searchTerm = searchInput.value.trim();
   if (searchTerm) {
-    window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+    window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
   }
 }
 
