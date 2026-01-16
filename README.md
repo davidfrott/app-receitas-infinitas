@@ -94,12 +94,28 @@ Diferente de sistemas acadêmicos comuns, este projeto foca na Experiência do U
 
 2. **Entre na pasta do projeto**
    ```bash
-   cd receitas-infinitas
+   cd app-receitas-infinitas
 
-3. **Execute o Backend**
+3. **Configure o Banco de Dados**
+   * Navegue até: `src/main/resources/`
+   * Crie um arquivo chamado: `application.yaml`
+   * Cole o seguinte conteúdo (alterando para os dados do seu banco PostgreSQL local):
+
+   ```yaml
+   spring:
+     datasource:
+       url: jdbc:postgresql://localhost:5432/receitas_db
+       username: seu_usuario_postgres
+       password: sua_senha_postgres
+     jpa:
+       hibernate:
+         ddl-auto: update
+       show-sql: true
+
+4. **Execute o Backend**
    ```bash
    mvn spring-boot:run
 
-4. **Acesse a Aplicação**
+5. **Acesse a Aplicação**
    ```bash
    Abra o seu navegador e vá para: http://localhost:8080
